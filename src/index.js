@@ -5,14 +5,42 @@
 module.exports = function getLoveTrianglesCount(preferences = []) {
   let n = 0;
   let count = 0;
-  console.log('count=', count);
-  // аррэй[4,q,w,8,r,t,1,u,i,o,p]
-  // 1) аррэй[i] = 4
-  // 2) аррэй[4-1]=8
-  // 3) аррэй[8-1]=1
-  // 4) если аррэй[1-1]=4
-  // 5) то любовный треугольник есть
+  let array = [];
   while (n<preferences.length) {
+    let k = preferences[n];
+    let y = preferences[k-1];
+    let z = preferences[y-1];
+    let x = z-1;
+    if (preferences[x] == k && k != y && y != z && z != k && find(array, k) == -1 && find(array, y) == -1 && find(array, z) == -1 ) {
+      count++;
+      array.push (k, y, z)
+    }
+    n++;
+  }
+  console.log('count = ', count);
+  return count;
+
+
+
+
+  function find(arr, value) {
+    if (arr.indexOf) {
+      return arr.indexOf(value);
+    }
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] === value) return i;
+    }
+    return -1;
+  }
+  
+
+
+
+};
+
+
+
+
     //if (preferences[preferences[preferences[preferences[i]-1]-1]-1] === preferences[i]) {
     ///  count++;
     //};
@@ -39,33 +67,3 @@ module.exports = function getLoveTrianglesCount(preferences = []) {
 
 
 */
-                    
-    let k = preferences[n];   // k == 2 на месте n == 1'             
-    let y = preferences[k-1]; // y == 3 на месте k == 2'           
-    let z = preferences[y-1]; // z == 1 на месте y == 3'
-    let x = z-1;
-                    console.log('n=', n);
-                    console.log('preferences[n]=', preferences[n]);
-                    console.log('k=', k);
-                    console.log('y=', y);
-                    console.log('z=', z);
-                    console.log('x=', x);
-                    console.log('preferences[x]', preferences[x]);
-                    console.log('k=', k);
-    if (preferences[x] == k) {
-      count++;
-      console.log('count=', count);
-    }
-    n++;
-  }
-  return count;
-};
-
-
-
-
-  // 1) аррэй[i] = 4
-  // 2) аррэй[аррэй[i]-1]=8
-  // 3) аррэй[аррэй[аррэй[i]-1]-1]=1
-  // 4) если preferences[preferences[preferences[preferences[i]-1]-1]-1]=preferences[i]
-  // 5) то любовный треугольник есть
